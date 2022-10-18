@@ -41,11 +41,14 @@ namespace EPI_USE.DataAccess
         //Method to get a specific employee
         public Employee GetEmployee(string employeeNumber)
         {
+            //Getting the employee that has the parsed employee number.
             Employee chosenEmployee = new Employee();
 
-            chosenEmployee = (Employee)(from emp in epi_use_context.Employees
-                             where emp.EmployeeNumber.Equals(employeeNumber)
-                             select emp);
+            var employee = from emp in epi_use_context.Employees
+                           where emp.EmployeeNumber.Equals(employeeNumber)
+                           select emp;
+
+            chosenEmployee = employee.SingleOrDefault();
 
             return chosenEmployee;
         }
@@ -61,9 +64,12 @@ namespace EPI_USE.DataAccess
         {
             //Getting the employee that has the parsed employee number.
             Employee chosenEmployee = new Employee();
-            chosenEmployee = (Employee)(from emp in epi_use_context.Employees
-                                        where emp.EmployeeNumber.Equals(employeeNo)
-                                        select emp);
+
+            var employee = from emp in epi_use_context.Employees
+                           where emp.EmployeeNumber.Equals(employeeNo)
+                           select emp;
+
+            chosenEmployee = employee.SingleOrDefault();
 
             //Removing the specified Employee from the database employees.
             epi_use_context.Employees.Remove(chosenEmployee);

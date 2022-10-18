@@ -1,0 +1,36 @@
+﻿@model IEnumerable<EPI_USE.Models.Employee>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">All Employees</h1>
+
+<p class="text-center">
+    <a asp-action="CreateEmployee" class="btn btn-primary">Create new Employee</a>
+</p>
+
+@*For the display of the farmer's products*@
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Employee Number</th>
+            <th>Employee Name</th>
+            <th>Employee Surname</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => employee.EmployeeNumber)</td>
+                <td>@Html.DisplayFor(modelItem => employee.Name)</td>
+                <td>@Html.DisplayFor(modelItem => employee.Surname)</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@employee.EmployeeNumber" class="btn btn-primary">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

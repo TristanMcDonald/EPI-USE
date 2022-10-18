@@ -52,6 +52,27 @@ namespace EPI_USE.Controllers
         }
 
 
+        //Get Employee Details
+        [Route("Employee/Details/{employeeNo}")]
+        [HttpGet]
+        public IActionResult Details(string employeeNo)
+        {
+            if (employeeNo == null)
+            {
+                return NotFound();
+            }
+
+            Employee emp = employeeDAL.GetEmployee(employeeNo);
+
+            if (emp == null)
+            {
+                return NotFound();
+            }
+
+            return View(emp);
+        }
+
+
         //Get Delete View
         [Route("Employee/Delete/{employeeNo}")]
         public IActionResult Delete(string employeeNo)
