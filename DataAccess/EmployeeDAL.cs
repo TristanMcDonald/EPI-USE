@@ -23,7 +23,7 @@ namespace EPI_USE.DataAccess
         }
 
         //Method to fetch all Employees.
-        public IEnumerable<Employee> GetAllEmployees(string employeeNumber)
+        public IEnumerable<Employee> GetAllEmployees()
         {
             //initializing the Employees list.
             List<Employee> allEmployees = new List<Employee>();
@@ -57,10 +57,16 @@ namespace EPI_USE.DataAccess
         }
 
         //Method to remove an employee from the database
-        public void DeleteEmployee(Employee employee)
+        public void DeleteEmployee(string employeeNo)
         {
+            //Getting the employee that has the parsed employee number.
+            Employee chosenEmployee = new Employee();
+            chosenEmployee = (Employee)(from emp in epi_use_context.Employees
+                                        where emp.EmployeeNumber.Equals(employeeNo)
+                                        select emp);
+
             //Removing the specified Employee from the database employees.
-            epi_use_context.Employees.Remove(employee);
+            epi_use_context.Employees.Remove(chosenEmployee);
             //Saving the changes made to the database context.
             epi_use_context.SaveChanges();
         }
