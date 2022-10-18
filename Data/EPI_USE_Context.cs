@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using EPI_USE.Models;
+using System.Data.Entity;
 
 namespace EPI_USE.Data
 {
@@ -9,7 +10,7 @@ namespace EPI_USE.Data
 
         }
 
-
+        public DbSet<Employee> Employees {get; set;}
 
     }
 }
