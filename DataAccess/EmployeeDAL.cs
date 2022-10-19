@@ -9,7 +9,7 @@ namespace EPI_USE.DataAccess
 {
     public class EmployeeDAL
     {
-        //string connectionStringDEV = "Data Source=LAPTOP-TCM;Initial Catalog=DomingoDatabase;Integrated Security=True";
+        //Remote database connection string
         string connectionStringPROD = "Server=tcp:epi-use-server.database.windows.net,1433;Initial Catalog=epi-use-db;Persist Security Info=False;User ID=tristan;Password=Password123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         //Get All Employees

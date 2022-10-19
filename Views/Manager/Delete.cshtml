@@ -1,0 +1,35 @@
+﻿@model EPI_USE.Models.Manager
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">Delete Manager</h2>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+
+                    <ul>
+                        <li><label style="font-weight: bold">Manager Number: </label> @Html.DisplayFor(model => model.ManagerNumber)</li>
+                        <li><label style="font-weight: bold">Name: </label>  @Html.DisplayFor(model => model.Name)</li>
+                        <li><label style="font-weight: bold">Surname: </label>  @Html.DisplayFor(model => model.Surname)</li>
+                    </ul>
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="ManagerNumber"/>
+
+                        <div>
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                            <a asp-action="AllManagers" class="btn btn-warning">Cancel</a>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+</div>

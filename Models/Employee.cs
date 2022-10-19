@@ -27,7 +27,7 @@ namespace EPI_USE.Models
         [Required(ErrorMessage = "Please enter a position for this employee")]
         public string Position { get; set; }
 
-        [Required(ErrorMessage = "If employee has no manager type N/A")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "Manager Number must be 5 characters long")]
         public string ReportingLineManager { get; set; }
     }
 }
