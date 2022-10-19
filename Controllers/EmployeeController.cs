@@ -32,7 +32,8 @@ namespace EPI_USE.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 employeeList = employeeList.Where(e => e.EmployeeNumber.Contains(searchString) ||
-                e.Salary.Contains(searchString)|| e.Position.Contains(searchString) || e.BirthDate.Year.Equals(searchString)).ToList();
+                e.Salary.Contains(searchString)|| e.Position.Contains(searchString) || e.BirthDate.Equals(searchString)||
+                e.Surname.Contains(searchString) || e.Name.Contains(searchString)).ToList();
             }
 
             //Return the list of employees
