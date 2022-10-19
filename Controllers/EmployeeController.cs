@@ -1,7 +1,7 @@
-﻿using EPI_USE.Data;
-using EPI_USE.DataAccess;
+﻿using EPI_USE.DataAccess;
 using EPI_USE.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,9 +9,6 @@ namespace EPI_USE.Controllers
 {
     public class EmployeeController : Controller
     {
-        //Creating an object of the database context
-        EPI_USE_Context epi_use_context = new EPI_USE_Context();
-
         //GET: EmployeeDAL
         //Creating an object of the EmployeeDAL
         public EmployeeDAL employeeDAL = new EmployeeDAL();
@@ -20,13 +17,24 @@ namespace EPI_USE.Controllers
         {
             return View();
         }
-
-        public ViewResult AllEmployees()
-        {
-            //Get all employees
+        //Get all employees
+        //The filter by employee data is implemented within this controller.
+        public ViewResult AllEmployees(string searchString)
+        {            
             var employeeList = new List<Employee>();
             //Calling the DAL method which parses a list with all employees
             employeeList = employeeDAL.GetAllEmployees().ToList();
+
+            //Declaration for filter.
+            ViewData["CurrentFilter"] = searchString;
+
+            //If the searchString contains a value 
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                employeeList = employeeList.Where(e => e.EmployeeNumber.Contains(searchString) ||
+                e.Salary.Contains(searchString)|| e.Position.Contains(searchString) || e.BirthDate.Year.Equals(searchString)).ToList();
+            }
+
             //Return the list of employees
             return View(employeeList);
         }
@@ -105,7 +113,7 @@ namespace EPI_USE.Controllers
 
             if (ModelState.IsValid)
             {
-                employeeDAL.UpdateEmployee(employeeNo, emp);
+                employeeDAL.UpdateEmployee(emp);
                 return RedirectToAction("AllEmployees");
             }
             return View(employeeDAL);

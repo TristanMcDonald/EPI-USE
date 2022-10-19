@@ -1,103 +1,138 @@
-﻿using EPI_USE.Data;
-using EPI_USE.Models;
+﻿using EPI_USE.Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace EPI_USE.DataAccess
 {
     public class EmployeeDAL
     {
-        private EPI_USE_Context epi_use_context;
-        public EmployeeDAL()
-        {
-            epi_use_context = new EPI_USE_Context();
-        }
+        //string connectionStringDEV = "Data Source=LAPTOP-TCM;Initial Catalog=DomingoDatabase;Integrated Security=True";
+        string connectionStringPROD = "Server=tcp:epi-use-server.database.windows.net,1433;Initial Catalog=epi-use-db;Persist Security Info=False;User ID=tristan;Password=Password123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-        //Method to Create a new employee by adding their information entered to the database (context).
-        public void CreateEmployee(Employee employee)
-        {
-            //Adding the new Employee to the database employees.
-            epi_use_context.Employees.Add(employee);
-            //Saving the changes made to the database context.
-            epi_use_context.SaveChanges();
-        }
-
-        //Method to fetch all Employees.
+        //Get All Employees
         public IEnumerable<Employee> GetAllEmployees()
         {
-            //initializing the Employees list.
-            List<Employee> allEmployees = new List<Employee>();
+            List<Employee> empList = new List<Employee>();
 
-            foreach (var employee in epi_use_context.Employees)
+            using (SqlConnection con = new SqlConnection(connectionStringPROD))
             {
-                allEmployees = new List<Employee>
-                    (from emp in epi_use_context.Employees
-                     select emp
-                    );
+                SqlCommand cmd = new SqlCommand("SP_GetAllEmployees", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Employee emp = new Employee();
+                    emp.EmployeeNumber= dr["employeeNumber"].ToString();
+                    emp.Name = dr["name"].ToString();
+                    emp.Surname = dr["surname"].ToString();
+                    emp.BirthDate = (DateTime)dr["birthDate"];
+                    emp.Salary = dr["salary"].ToString();
+                    emp.Position = dr["position"].ToString();
+                    emp.ReportingLineManager = dr["reportingLineManager"].ToString();
+
+                    empList.Add(emp);
+                }
+                con.Close();
             }
-            return allEmployees;
+
+            return empList;
+
         }
 
-        //Method to get a specific employee
-        public Employee GetEmployee(string employeeNumber)
+        //Create a new employee
+        public void CreateEmployee(Employee emp)
         {
-            //Getting the employee that has the parsed employee number.
-            Employee chosenEmployee = new Employee();
+            using (SqlConnection con = new SqlConnection(connectionStringPROD))
+            {
+                SqlCommand cmd = new SqlCommand("SP_CreateEmployee", con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            var employee = from emp in epi_use_context.Employees
-                           where emp.EmployeeNumber.Equals(employeeNumber)
-                           select emp;
+                cmd.Parameters.AddWithValue("@employeeNumber", emp.EmployeeNumber);
+                cmd.Parameters.AddWithValue("@name", emp.Name);
+                cmd.Parameters.AddWithValue("@surname", emp.Surname);
+                cmd.Parameters.AddWithValue("@birthDate", emp.BirthDate);
+                cmd.Parameters.AddWithValue("@salary", emp.Salary);
+                cmd.Parameters.AddWithValue("@position", emp.Position);
+                cmd.Parameters.AddWithValue("@reportingLineManager", emp.ReportingLineManager);
 
-            chosenEmployee = employee.SingleOrDefault();
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
 
-            return chosenEmployee;
+            }
         }
 
-        //Method to update an employees information
-        public void UpdateEmployee(string employeeNo, Employee employee)
+        //Get Employee By ID
+
+        public Employee GetEmployee(string employeeNo)
         {
-            var fetchedEmployee = from emp in epi_use_context.Employees
-                           where emp.EmployeeNumber.Equals(employeeNo)
-                           select emp;
+            Employee emp = new Employee();
+            using (SqlConnection con = new SqlConnection(connectionStringPROD))
+            {
+                SqlCommand cmd = new SqlCommand("SP_GetEmployee", con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            //Creating an object of the Employee class to access the properties and assign relevant values entered
-            //by the user to the object properties.
-            Employee updatedEmp = new Employee();
-            updatedEmp.EmployeeNumber = employeeNo;
-            updatedEmp.Name = employee.Name;
-            updatedEmp.Surname = employee.Surname;
-            updatedEmp.BirthDate = employee.BirthDate;
-            updatedEmp.Salary = employee.Salary;
-            updatedEmp.Position = employee.Position;
-            updatedEmp.ReportingLineManager = employee.ReportingLineManager;
-
-            //Removing the old data for the employee who's data is being updated.
-            epi_use_context.Employees.Remove(fetchedEmployee.SingleOrDefault());
-
-            //Adding the updated employee data to the database
-            epi_use_context.Employees.Add(updatedEmp);
-
-            //Saving the changes made to the database.
-            epi_use_context.SaveChanges();
-
+                cmd.Parameters.AddWithValue("@employeeNumber", employeeNo);
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    emp.EmployeeNumber = dr["employeeNumber"].ToString();
+                    emp.Name = dr["name"].ToString();
+                    emp.Surname = dr["surname"].ToString();
+                    emp.BirthDate = (DateTime)dr["birthDate"];
+                    emp.Salary = dr["salary"].ToString();
+                    emp.Position = dr["position"].ToString();
+                    emp.ReportingLineManager = dr["reportingLineManager"].ToString();
+                }
+                con.Close();
+            }
+            return emp;
         }
 
-        //Method to remove an employee from the database
+        //Update Employee
+
+        public void UpdateEmployee(Employee emp)
+        {
+            using (SqlConnection con = new SqlConnection(connectionStringPROD))
+            {
+                SqlCommand cmd = new SqlCommand("SP_UpdateEmployee", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@employeeNumber", emp.EmployeeNumber);
+                cmd.Parameters.AddWithValue("@name", emp.Name);
+                cmd.Parameters.AddWithValue("@surname", emp.Surname);
+                cmd.Parameters.AddWithValue("@birthDate", emp.BirthDate);
+                cmd.Parameters.AddWithValue("@salary", emp.Salary);
+                cmd.Parameters.AddWithValue("@position", emp.Position);
+                cmd.Parameters.AddWithValue("@reportingLineManager", emp.ReportingLineManager);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+            }
+        }
+
+        //Delete Employee
+
         public void DeleteEmployee(string employeeNo)
         {
-            //Getting the employee that has the parsed employee number.
-            Employee chosenEmployee = new Employee();
+            using (SqlConnection con = new SqlConnection(connectionStringPROD))
+            {
+                SqlCommand cmd = new SqlCommand("SP_DeleteEmployee", con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            var employee = from emp in epi_use_context.Employees
-                           where emp.EmployeeNumber.Equals(employeeNo)
-                           select emp;
+                cmd.Parameters.AddWithValue("@employeeNumber", employeeNo);
 
-            chosenEmployee = employee.SingleOrDefault();
-
-            //Removing the specified Employee from the database employees.
-            epi_use_context.Employees.Remove(chosenEmployee);
-            //Saving the changes made to the database context.
-            epi_use_context.SaveChanges();
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
         }
 
     }

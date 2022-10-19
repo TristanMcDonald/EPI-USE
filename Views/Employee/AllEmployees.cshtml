@@ -10,14 +10,28 @@
     <a asp-action="CreateEmployee" class="btn btn-primary">Create new Employee</a>
 </p>
 
+<form asp-action="AllEmployees" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Filter By: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="AllEmployees">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
 @*For the display of the farmer's products*@
 
 <table class="table table-hover">
     <thead>
         <tr>
             <th>Employee Number</th>
-            <th>Employee Name</th>
-            <th>Employee Surname</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Birth Date</th>
+            <th>Salary</th>
+            <th>Position</th>
+            <th>Reporting Line Manager</th>
         </tr>
     </thead>
     <tbody>
@@ -27,8 +41,14 @@
                 <td>@Html.DisplayFor(modelItem => employee.EmployeeNumber)</td>
                 <td>@Html.DisplayFor(modelItem => employee.Name)</td>
                 <td>@Html.DisplayFor(modelItem => employee.Surname)</td>
+                <td>@Html.DisplayFor(modelItem => employee.BirthDate)</td>
+                <td>@Html.DisplayFor(modelItem => employee.Salary)</td>
+                <td>@Html.DisplayFor(modelItem => employee.Position)</td>
+                <td>@Html.DisplayFor(modelItem => employee.ReportingLineManager)</td>
+
                 <td>
                     <a asp-action="Details" asp-route-id="@employee.EmployeeNumber" class="btn btn-primary">Details</a>
+                    <a asp-action="Delete" asp-route-id="@employee.EmployeeNumber" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
