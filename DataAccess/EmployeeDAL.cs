@@ -54,8 +54,31 @@ namespace EPI_USE.DataAccess
         }
 
         //Method to update an employees information
-        public void UpdateEmployee()
+        public void UpdateEmployee(string employeeNo, Employee employee)
         {
+            var fetchedEmployee = from emp in epi_use_context.Employees
+                           where emp.EmployeeNumber.Equals(employeeNo)
+                           select emp;
+
+            //Creating an object of the Employee class to access the properties and assign relevant values entered
+            //by the user to the object properties.
+            Employee updatedEmp = new Employee();
+            updatedEmp.EmployeeNumber = employeeNo;
+            updatedEmp.Name = employee.Name;
+            updatedEmp.Surname = employee.Surname;
+            updatedEmp.BirthDate = employee.BirthDate;
+            updatedEmp.Salary = employee.Salary;
+            updatedEmp.Position = employee.Position;
+            updatedEmp.ReportingLineManager = employee.ReportingLineManager;
+
+            //Removing the old data for the employee who's data is being updated.
+            epi_use_context.Employees.Remove(fetchedEmployee.SingleOrDefault());
+
+            //Adding the updated employee data to the database
+            epi_use_context.Employees.Add(updatedEmp);
+
+            //Saving the changes made to the database.
+            epi_use_context.SaveChanges();
 
         }
 

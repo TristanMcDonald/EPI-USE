@@ -73,6 +73,45 @@ namespace EPI_USE.Controllers
         }
 
 
+        //Edit Employees
+        [Route("Employee/Edit/{employeeNo}")]
+        public IActionResult Edit(string employeeNo)
+        {
+            if (employeeNo == null)
+            {
+                return NotFound();
+            }
+
+            Employee emp = employeeDAL.GetEmployee(employeeNo);
+
+            if (emp == null)
+            {
+                return NotFound();
+            }
+
+            return View(emp);
+        }
+
+        //Update Employee
+        [Route("Employee/Edit/{employeeNo}")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(string employeeNo, [Bind] Employee emp)
+        {
+            if (employeeNo == null)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                employeeDAL.UpdateEmployee(employeeNo, emp);
+                return RedirectToAction("AllEmployees");
+            }
+            return View(employeeDAL);
+        }
+
+
         //Get Delete View
         [Route("Employee/Delete/{employeeNo}")]
         public IActionResult Delete(string employeeNo)
