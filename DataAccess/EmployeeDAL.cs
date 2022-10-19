@@ -1,4 +1,5 @@
-﻿using EPI_USE.Models;
+﻿using EPI_USE.Controllers;
+using EPI_USE.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -60,7 +61,15 @@ namespace EPI_USE.DataAccess
                 cmd.Parameters.AddWithValue("@reportingLineManager", emp.ReportingLineManager);
 
                 con.Open();
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException e)
+                {
+                    EmployeeController empController = new EmployeeController();
+                    empController.RedirectToAction("AllEmployees");
+                }
                 con.Close();
 
             }
