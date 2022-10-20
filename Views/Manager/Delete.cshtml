@@ -12,7 +12,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
 
-                    <ul>
+                    <ul class="text-center" style="position:center">
                         <li><label style="font-weight: bold">Manager Number: </label> @Html.DisplayFor(model => model.ManagerNumber)</li>
                         <li><label style="font-weight: bold">Name: </label>  @Html.DisplayFor(model => model.Name)</li>
                         <li><label style="font-weight: bold">Surname: </label>  @Html.DisplayFor(model => model.Surname)</li>
@@ -22,7 +22,7 @@
                     <form asp-action="Delete">
                         <input type="hidden" asp-for="ManagerNumber"/>
 
-                        <div>
+                        <div class="text-center" style="position:center">
                             <input type="submit" value="Delete" class="btn btn-danger" />
                             <a asp-action="AllManagers" class="btn btn-warning">Cancel</a>
                         </div>

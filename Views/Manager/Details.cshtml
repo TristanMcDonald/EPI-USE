@@ -12,14 +12,14 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
 
-                    <ul>
+                    <ul class="text-center" style="position:center">
                         <li><label style="font-weight: bold">Manager Number: </label> @Html.DisplayFor(model => model.ManagerNumber)</li>
                         <li><label style="font-weight: bold">Name: </label>  @Html.DisplayFor(model => model.Name)</li>
                         <li><label style="font-weight: bold">Surname: </label>  @Html.DisplayFor(model => model.Surname)</li>
                         <li><label style="font-weight: bold">Email Address: </label>  @Html.DisplayFor(model => model.EmailAddress)</li>
                     </ul>
 
-                    <div>
+                    <div class="text-center" style="position:center">
                         <a asp-action="Edit" asp-route-id="@Model.ManagerNumber" class="btn btn-primary">Edit</a>
                         <a asp-action="AllManagers" class="btn btn-warning">Back</a>
                     </div>
