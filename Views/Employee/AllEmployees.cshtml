@@ -25,6 +25,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
+            <th>Gravatar</th>
             <th>Employee Number</th>
             <th>Name</th>
             <th>Surname</th>
@@ -38,6 +39,12 @@
         @foreach (var employee in Model)
         {
             <tr>
+                <td>@Html.GravatarImage(
+                        "user.name@email.com",
+                         size: 60,
+                         defaultImage: GravatarHtmlHelper.DefaultImage.Retro,
+                         rating: GravatarHtmlHelper.Rating.G,
+                        cssClass: "gravatar img-responsive")</td>
                 <td>@Html.DisplayFor(modelItem => employee.EmployeeNumber)</td>
                 <td>@Html.DisplayFor(modelItem => employee.Name)</td>
                 <td>@Html.DisplayFor(modelItem => employee.Surname)</td>

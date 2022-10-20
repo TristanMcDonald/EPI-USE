@@ -55,13 +55,13 @@ namespace EPI_USE.Controllers
             //Loop and add the Parent Nodes.
             foreach (Manager man in managerList)
             {
-                nodes.Add(new TreeViewNode { id = man.ManagerNumber.ToString(), parent = "#", text = man.Name + man.Surname + " - Manager" });
+                nodes.Add(new TreeViewNode { id = man.ManagerNumber.ToString(), parent = "#", text = man.Name + " " + man.Surname + " - Manager" });
             }
 
             //Loop and add the Child Nodes.
             foreach (Employee emp in filteredEmployeeList)
             {
-                nodes.Add(new TreeViewNode { id = emp.ReportingLineManager.ToString() + "-" + emp.EmployeeNumber.ToString(), parent = emp.ReportingLineManager.ToString(), text = emp.Name + emp.Surname });
+                nodes.Add(new TreeViewNode { id = emp.ReportingLineManager.ToString() + "-" + emp.EmployeeNumber.ToString(), parent = emp.ReportingLineManager.ToString(), text = emp.Name + " " + emp.Surname });
             }
 
             //Serialize to JSON string.
