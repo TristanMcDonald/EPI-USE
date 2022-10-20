@@ -19,6 +19,7 @@
             <th>Manager Number</th>
             <th>Name</th>
             <th>Surname</th>
+            <th>Email Address</th>
         </tr>
     </thead>
     <tbody>
@@ -26,7 +27,7 @@
         {
             <tr>
                 <td>@Html.GravatarImage(
-                        "user.name@email.com",
+                        manager.EmailAddress,
                          size: 60,
                          defaultImage: GravatarHtmlHelper.DefaultImage.Retro,
                          rating: GravatarHtmlHelper.Rating.G,
@@ -34,6 +35,7 @@
                 <td>@Html.DisplayFor(modelItem => manager.ManagerNumber)</td>
                 <td>@Html.DisplayFor(modelItem => manager.Name)</td>
                 <td>@Html.DisplayFor(modelItem => manager.Surname)</td>
+                <td>@Html.DisplayFor(modelItem => manager.EmailAddress)</td>
 
                 <td>
                     <a asp-action="Details" asp-route-id="@manager.ManagerNumber" class="btn btn-primary">Details</a>

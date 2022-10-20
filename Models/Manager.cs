@@ -14,5 +14,8 @@ namespace EPI_USE.Models
 
         [Required(ErrorMessage = "Please enter a surname for this manager")]
         public string Surname { get; set; }
+
+        [Required(ErrorMessage = "Please enter an email address for this manager")]
+        public string EmailAddress { get; set; }
     }
 }

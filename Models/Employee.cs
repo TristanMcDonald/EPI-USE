@@ -11,6 +11,9 @@ namespace EPI_USE.Models
         [Required(ErrorMessage = "Please enter a surname for this employee")]
         public string Surname { get; set; }
 
+        [Required(ErrorMessage = "Please enter an email address for this employee")]
+        public string EmailAddress { get; set; }
+
         [Required(ErrorMessage = "Please enter a birth date for this employee")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]

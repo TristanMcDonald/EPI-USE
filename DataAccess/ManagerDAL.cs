@@ -27,6 +27,7 @@ namespace EPI_USE.DataAccess
                     man.ManagerNumber = dr["managerNumber"].ToString();
                     man.Name = dr["name"].ToString();
                     man.Surname = dr["surname"].ToString();
+                    man.EmailAddress = dr["emailAddress"].ToString();
 
                     manList.Add(man);
                 }
@@ -48,6 +49,7 @@ namespace EPI_USE.DataAccess
                 cmd.Parameters.AddWithValue("@managerNumber", man.ManagerNumber);
                 cmd.Parameters.AddWithValue("@name", man.Name);
                 cmd.Parameters.AddWithValue("@surname", man.Surname);
+                cmd.Parameters.AddWithValue("@emailAddress", man.EmailAddress);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -73,6 +75,7 @@ namespace EPI_USE.DataAccess
                     man.ManagerNumber = dr["managerNumber"].ToString();
                     man.Name = dr["name"].ToString();
                     man.Surname = dr["surname"].ToString();
+                    man.EmailAddress = dr["emailAddress"].ToString();
                 }
                 con.Close();
             }
@@ -90,6 +93,7 @@ namespace EPI_USE.DataAccess
                 cmd.Parameters.AddWithValue("@managerNumber", man.ManagerNumber);
                 cmd.Parameters.AddWithValue("@name", man.Name);
                 cmd.Parameters.AddWithValue("@surname", man.Surname);
+                cmd.Parameters.AddWithValue("@emailAddress", man.EmailAddress);
 
                 con.Open();
                 cmd.ExecuteNonQuery();

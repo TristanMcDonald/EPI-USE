@@ -31,6 +31,12 @@
                             <span asp-validation-for="Surname" class="text-danger"></span>
                         </div>
 
+                        <div class="form-group">
+                            <label asp-for="EmailAddress" class="control-label">Email Address</label>
+                            <input type="email" asp-for="EmailAddress" class="form-control" />
+                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                        </div>
+
                         <div class="form-group text-center">
                             <input type="submit" value="CreateManager" class="btn btn-primary" />
                             <a asp-action="AllManagers" class="btn btn-warning">Cancel</a>

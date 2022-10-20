@@ -30,6 +30,7 @@ namespace EPI_USE.DataAccess
                     emp.EmployeeNumber= dr["employeeNumber"].ToString();
                     emp.Name = dr["name"].ToString();
                     emp.Surname = dr["surname"].ToString();
+                    emp.EmailAddress = dr["emailAddress"].ToString();
                     emp.BirthDate = (DateTime)dr["birthDate"];
                     emp.Salary = dr["salary"].ToString();
                     emp.Position = dr["position"].ToString();
@@ -55,6 +56,7 @@ namespace EPI_USE.DataAccess
                 cmd.Parameters.AddWithValue("@employeeNumber", emp.EmployeeNumber);
                 cmd.Parameters.AddWithValue("@name", emp.Name);
                 cmd.Parameters.AddWithValue("@surname", emp.Surname);
+                cmd.Parameters.AddWithValue("@emailAddress", emp.EmailAddress);
                 cmd.Parameters.AddWithValue("@birthDate", emp.BirthDate);
                 cmd.Parameters.AddWithValue("@salary", emp.Salary);
                 cmd.Parameters.AddWithValue("@position", emp.Position);
@@ -85,6 +87,7 @@ namespace EPI_USE.DataAccess
                     emp.EmployeeNumber = dr["employeeNumber"].ToString();
                     emp.Name = dr["name"].ToString();
                     emp.Surname = dr["surname"].ToString();
+                    emp.EmailAddress = dr["emailAddress"].ToString();
                     emp.BirthDate = (DateTime)dr["birthDate"];
                     emp.Salary = dr["salary"].ToString();
                     emp.Position = dr["position"].ToString();
@@ -107,6 +110,7 @@ namespace EPI_USE.DataAccess
                 cmd.Parameters.AddWithValue("@employeeNumber", emp.EmployeeNumber);
                 cmd.Parameters.AddWithValue("@name", emp.Name);
                 cmd.Parameters.AddWithValue("@surname", emp.Surname);
+                cmd.Parameters.AddWithValue("@emailAddress", emp.EmailAddress);
                 cmd.Parameters.AddWithValue("@birthDate", emp.BirthDate);
                 cmd.Parameters.AddWithValue("@salary", emp.Salary);
                 cmd.Parameters.AddWithValue("@position", emp.Position);

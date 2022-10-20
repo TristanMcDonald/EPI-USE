@@ -29,6 +29,7 @@
             <th>Employee Number</th>
             <th>Name</th>
             <th>Surname</th>
+            <th>Email Address</th>
             <th>Birth Date</th>
             <th>Salary</th>
             <th>Position</th>
@@ -40,7 +41,7 @@
         {
             <tr>
                 <td>@Html.GravatarImage(
-                        "user.name@email.com",
+                         employee.EmailAddress,
                          size: 60,
                          defaultImage: GravatarHtmlHelper.DefaultImage.Retro,
                          rating: GravatarHtmlHelper.Rating.G,
@@ -48,6 +49,7 @@
                 <td>@Html.DisplayFor(modelItem => employee.EmployeeNumber)</td>
                 <td>@Html.DisplayFor(modelItem => employee.Name)</td>
                 <td>@Html.DisplayFor(modelItem => employee.Surname)</td>
+                <td>@Html.DisplayFor(modelItem => employee.EmailAddress)</td>
                 <td>@Html.DisplayFor(modelItem => employee.BirthDate)</td>
                 <td>@Html.DisplayFor(modelItem => employee.Salary)</td>
                 <td>@Html.DisplayFor(modelItem => employee.Position)</td>
