@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="position:absolute; top:20%">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center" style="color:red">Manager Number Error</h2>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <img style="max-width:70px;max-height:70px" src="~/lib/Images/warning.png" />
+                    </div>
+                    <div style="text-align:center">
+                        <p class="text-danger" style="text-align: center; font-size:large; font-weight:bold">The Manager Number that</p>
+                        <p class="text-danger" style="text-align: center; font-size: large; font-weight: bold ">you have entered</p>
+                        <p class="text-danger" style="text-align: center; font-size: large; font-weight: bold ">does not exist</p>
+                        <p style="text-align: center; font-size: medium; font-weight: normal ">Return To:</p>
+                    </div>
+                    <div class="text-center" style="position:center">
+                        <a asp-action="AllEmployees" class="btn btn-primary">Employee List</a>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+</div>

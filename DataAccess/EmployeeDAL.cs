@@ -61,15 +61,7 @@ namespace EPI_USE.DataAccess
                 cmd.Parameters.AddWithValue("@reportingLineManager", emp.ReportingLineManager);
 
                 con.Open();
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                }
-                catch (SqlException e)
-                {
-                    EmployeeController empController = new EmployeeController();
-                    empController.RedirectToAction("AllEmployees");
-                }
+                cmd.ExecuteNonQuery();
                 con.Close();
 
             }

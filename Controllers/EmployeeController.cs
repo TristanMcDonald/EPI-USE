@@ -13,10 +13,11 @@ namespace EPI_USE.Controllers
         //Creating an object of the EmployeeDAL
         public EmployeeDAL employeeDAL = new EmployeeDAL();
 
-        public IActionResult Index()
+        public ViewResult ManagerNumberError()
         {
             return View();
         }
+
         //Get all employees
         //The filter by employee data is implemented within this controller.
         public ViewResult AllEmployees(string searchString)
@@ -52,8 +53,16 @@ namespace EPI_USE.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Calling the DAL method to create a new employee.
-                employeeDAL.CreateEmployee(emp);
+                try
+                {
+                    //Calling the DAL method to create a new employee.
+                    employeeDAL.CreateEmployee(emp);
+                }
+                catch (Exception e) 
+                {
+                    return RedirectToAction("ManagerNumberError");
+                }
+                
                 //once the employee is created, redirect to the Index view.
                 return RedirectToAction("AllEmployees");
             }
@@ -114,7 +123,14 @@ namespace EPI_USE.Controllers
 
             if (ModelState.IsValid)
             {
-                employeeDAL.UpdateEmployee(emp);
+                try
+                {
+                    employeeDAL.UpdateEmployee(emp);
+                }
+                catch(Exception e)
+                {
+                    return RedirectToAction("ManagerNumberError");
+                }
                 return RedirectToAction("AllEmployees");
             }
             return View(employeeDAL);
