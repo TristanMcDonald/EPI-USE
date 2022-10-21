@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/epi-use-server/databases/epi-use-db",
+      "type": "mssql.azure",
+      "connectionId": "EPI-USEDBConnection"
+    }
+  }
+}
